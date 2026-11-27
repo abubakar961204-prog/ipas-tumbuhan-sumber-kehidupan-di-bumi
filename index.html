@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evaluasi IPAS Kelas 4 — Tumbuhan, Sumber Kehidupan di Bumi</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="hero-badge">IPAS Kelas 4 SD • Kurikulum Merdeka • Bab 1</div>
+      <h1>Tumbuhan, Sumber Kehidupan di Bumi</h1>
+      <p>Kuis Evaluasi Interaktif: Bagian Tubuh Tumbuhan, Fotosintesis, dan Perkembangbiakan Tumbuhan.</p>
+    </header>
+
+    <!-- Halaman Awal / Pengaturan Evaluasi -->
+    <section id="setup-screen" class="card">
+      <h2 class="section-title">Mulai Evaluasi</h2>
+
+      <div class="form-group">
+        <label for="student-name">Nama Siswa (Opsional)</label>
+        <input id="student-name" class="text-input" type="text" placeholder="Contoh: Raka Pratama" maxlength="60" />
+      </div>
+
+      <div class="form-group">
+        <label>Pilih Paket Soal</label>
+        <div class="option-grid">
+          <button type="button" class="choice-pill active" data-topic="ALL">
+            <strong>Evaluasi Lengkap</strong>
+            <span>20 soal (Topik A, B, dan C)</span>
+          </button>
+          <button type="button" class="choice-pill" data-topic="A">
+            <strong>Topik A</strong>
+            <span>Bagian Tubuh Tumbuhan (7 soal)</span>
+          </button>
+          <button type="button" class="choice-pill" data-topic="B">
+            <strong>Topik B</strong>
+            <span>Fotosintesis (7 soal)</span>
+          </button>
+          <button type="button" class="choice-pill" data-topic="C">
+            <strong>Topik C</strong>
+            <span>Perkembangbiakan Tumbuhan (6 soal)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Pilih Mode Pengerjaan</label>
+        <div class="option-grid">
+          <button type="button" class="choice-pill active" data-mode="practice">
+            <strong>Mode Latihan</strong>
+            <span>Lihat kunci &amp; pembahasan langsung tiap soal</span>
+          </button>
+          <button type="button" class="choice-pill" data-mode="exam">
+            <strong>Mode Ujian</strong>
+            <span>Nilai &amp; pembahasan muncul di akhir evaluasi</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button id="start-btn" type="button" class="btn btn-primary">Mulai Kerjakan Soal</button>
+        <button id="toggle-summary-btn" type="button" class="btn btn-secondary">Lihat Ringkasan Materi</button>
+      </div>
+
+      <div id="summary-panel" class="hidden" style="margin-top: 20px;">
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3>Topik A: Bagian Tubuh Tumbuhan</h3>
+            <ul>
+              <li><strong>Akar:</strong> menyerap air &amp; hara, menopang tumbuhan (akar tunggang &amp; serabut).</li>
+              <li><strong>Batang:</strong> menyalurkan air dan makanan ke seluruh tumbuhan.</li>
+              <li><strong>Daun:</strong> tempat fotosintesis (tulang daun menyirip, menjari, melengkung, sejajar).</li>
+              <li><strong>Bunga, Buah, Biji:</strong> alat perkembangbiakan dan pelindung biji.</li>
+            </ul>
+          </article>
+          <article class="summary-card">
+            <h3>Topik B: Fotosintesis</h3>
+            <ul>
+              <li><strong>Bahan:</strong> air (dari akar), karbon dioksida (dari udara), cahaya matahari, dan klorofil.</li>
+              <li><strong>Hasil:</strong> glukosa/karbohidrat (makanan tumbuhan) dan oksigen (untuk bernapas).</li>
+              <li><strong>Peran:</strong> tumbuhan sebagai produsen utama sumber kehidupan di Bumi.</li>
+            </ul>
+          </article>
+          <article class="summary-card">
+            <h3>Topik C: Perkembangbiakan</h3>
+            <ul>
+              <li><strong>Generatif:</strong> penyerbukan (jatuhnya serbuk sari ke putik) menghasilkan buah &amp; biji.</li>
+              <li><strong>Penyebaran biji:</strong> dibantu angin, air, hewan, atau manusia.</li>
+              <li><strong>Vegetatif:</strong> tanpa biji; alami (tunas, umbi, rizoma) dan buatan (cangkok, setek).</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Halaman Kuis -->
+    <section id="quiz-screen" class="card hidden">
+      <div class="quiz-header">
+        <span id="topic-tag" class="topic-tag">Topik A</span>
+        <span id="question-counter" class="counter">Soal 1 dari 20</span>
+      </div>
+
+      <div class="progress-track">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+
+      <p id="question-text" class="question-text"></p>
+      <div id="answers-list" class="answers-list"></div>
+      <div id="feedback-box" class="feedback-box hidden"></div>
+
+      <div id="question-nav" class="question-nav"></div>
+
+      <div class="quiz-footer">
+        <button id="prev-btn" type="button" class="btn btn-secondary">Sebelumnya</button>
+        <div>
+          <button id="next-btn" type="button" class="btn btn-primary">Selanjutnya</button>
+          <button id="finish-btn" type="button" class="btn btn-primary hidden">Selesai &amp; Lihat Nilai</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Halaman Hasil -->
+    <section id="result-screen" class="card hidden">
+      <h2 class="section-title">Hasil Evaluasi</h2>
+      <p id="result-greeting" style="margin-top: 0;"></p>
+
+      <div class="score-summary">
+        <div class="stat-box">
+          <div id="score-value" class="stat-value">0</div>
+          <div class="stat-label">Nilai Akhir</div>
+        </div>
+        <div class="stat-box">
+          <div id="correct-count" class="stat-value">0</div>
+          <div class="stat-label">Jawaban Benar</div>
+        </div>
+        <div class="stat-box">
+          <div id="wrong-count" class="stat-value">0</div>
+          <div class="stat-label">Perlu Diperbaiki</div>
+        </div>
+        <div class="stat-box">
+          <div id="predicate-value" class="stat-value" style="font-size: 1.2rem; padding-top: 6px;">-</div>
+          <div class="stat-label">Predikat</div>
+        </div>
+      </div>
+
+      <h3 class="section-title" style="margin-top: 20px;">Capaian per Topik</h3>
+      <div id="topic-breakdown" class="topic-breakdown"></div>
+
+      <div class="actions-row no-print" style="margin-bottom: 20px;">
+        <button id="retry-btn" type="button" class="btn btn-primary">Ulangi Paket Ini</button>
+        <button id="home-btn" type="button" class="btn btn-secondary">Pilih Paket Lain</button>
+        <button id="print-btn" type="button" class="btn btn-secondary">Cetak Hasil</button>
+      </div>
+
+      <h3 class="section-title">Pembahasan Jawaban</h3>
+      <div id="review-list"></div>
+    </section>
+
+    <p class="footer-note">
+      Materi &amp; Evaluasi IPAS Kelas 4 SD Bab 1 • Tumbuhan, Sumber Kehidupan di Bumi.
+    </p>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
